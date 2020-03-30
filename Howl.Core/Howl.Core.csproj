@@ -10,6 +10,8 @@
     <PackageReleaseNotes />
     <RepositoryUrl>https://github.com/hflhhb/HowlCore</RepositoryUrl>
     <PackageTags />
+    <PackageProjectUrl>https://github.com/hflhhb/HowlCore</PackageProjectUrl>
+    <RepositoryType>Github</RepositoryType>
   </PropertyGroup>
   
   <ItemGroup>
