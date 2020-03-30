@@ -8,6 +8,8 @@
     <Copyright>Copyright 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes />
+    <RepositoryUrl>https://github.com/hflhhb/HowlCore</RepositoryUrl>
+    <PackageTags />
   </PropertyGroup>
   
   <ItemGroup>
