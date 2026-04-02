@@ -20,15 +20,15 @@ namespace Howl.Core.Tests
         }
 
         [Fact]
-        public void Result_SucceededTask_ShouldReturnCompletedTaskWithSuccess()
+        public async Task Result_SucceededTask_ShouldReturnCompletedTaskWithSuccess()
         {
             // Arrange & Act
             var task = Result.SucceededTask;
-
+            var taskResult = await task;    
             // Assert
             Assert.True(task.IsCompleted);
-            Assert.True(task.Result.Success);
-            Assert.Equal(200, task.Result.Code);
+            Assert.True(taskResult.Success);
+            Assert.Equal(200, taskResult.Code);
         }
 
         [Fact]
@@ -131,7 +131,7 @@ namespace Howl.Core.Tests
         }
 
         [Fact]
-        public void ResultT_ImplicitOperator_ToTask_ShouldReturnCompletedTask()
+        public async Task ResultT_ImplicitOperator_ToTask_ShouldReturnCompletedTask()
         {
             // Arrange
             var result = new Result<int> { Success = true, Data = 42 };
@@ -141,7 +141,7 @@ namespace Howl.Core.Tests
 
             // Assert
             Assert.True(task.IsCompleted);
-            Assert.Equal(result, task.Result);
+            Assert.Equal(result, (await task));
         }
 
         #endregion
