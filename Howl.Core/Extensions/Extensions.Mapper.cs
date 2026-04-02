@@ -8,9 +8,20 @@ using System.Text;
 
 namespace Howl.Core.Extensions
 {
+    /// <summary>
+    /// 提供对象映射相关的扩展方法。
+    /// </summary>
     public static partial class  MapperExtensions
     {
         private static ConcurrentDictionary<Type, ConcurrentDictionary<Type, IMapper>> TypeMappers { get; } = new ConcurrentDictionary<Type, ConcurrentDictionary<Type, IMapper>>();
+        /// <summary>
+        /// 使用AutoMapper将源对象映射为目标类型。
+        /// </summary>
+        /// <typeparam name="T">目标类型。</typeparam>
+        /// <param name="me">源对象。</param>
+        /// <param name="target">可选的目标对象，如果提供则映射到该对象。</param>
+        /// <param name="afterMap">映射完成后的回调操作。</param>
+        /// <returns>映射后的目标对象。</returns>
         public static T Map<T>(this object me, T target = default(T), Action<T> afterMap = null)
         {
             if (me == null) return default;
@@ -56,6 +67,15 @@ namespace Howl.Core.Extensions
             return returnValue;
         }
 
+        /// <summary>
+        /// 将源对象的属性值继承到目标对象。
+        /// 只有当目标对象的属性为空且源对象的对应属性不为空时才会进行赋值。
+        /// </summary>
+        /// <typeparam name="T1">目标对象类型。</typeparam>
+        /// <typeparam name="T2">源对象类型。</typeparam>
+        /// <param name="me">目标对象。</param>
+        /// <param name="source">源对象。</param>
+        /// <returns>目标对象。</returns>
         public static T1 Inherit<T1, T2>(this T1 me, T2 source)
         {
             if (source == null) return me;

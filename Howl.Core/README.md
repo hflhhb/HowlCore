@@ -2,6 +2,8 @@
 
 A .NET Standard 2.1 class library providing common utilities, extension methods, and patterns for the Howl framework.
 
+[简体中文](README.zh-CN.md)
+
 ## Features
 
 ### Result Pattern

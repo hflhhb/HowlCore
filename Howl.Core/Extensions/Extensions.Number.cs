@@ -7,26 +7,42 @@ namespace Howl.Core.Extensions
 {
     public static partial class Extensions
     {
+        /// <summary>
+        /// 判断当前值是否在指定范围内（包含边界）。
+        /// </summary>
+        /// <typeparam name="T">可比较的值类型。</typeparam>
+        /// <param name="me">要判断的值。</param>
+        /// <param name="from">范围下限。</param>
+        /// <param name="to">范围上限。</param>
+        /// <returns>如果值在范围内则返回true，否则返回false。</returns>
         public static bool Between<T>(this T me, T from, T to) where T : struct, IComparable<T>
         {
             return me.CompareTo(from) >= 0 && me.CompareTo(to) <= 0;
         }
 
-        public static bool Between<T>(this T? me, T? from, T? to) 
+        /// <summary>
+        /// 判断当前可空值是否在指定范围内（包含边界）。
+        /// </summary>
+        /// <typeparam name="T">可比较的值类型。</typeparam>
+        /// <param name="me">要判断的可空值。</param>
+        /// <param name="from">范围下限（可为空）。</param>
+        /// <param name="to">范围上限（可为空）。</param>
+        /// <returns>如果值在范围内则返回true，否则返回false。</returns>
+        public static bool Between<T>(this T? me, T? from, T? to)
             where T : struct, IComparable<T>
         {
             return Between(me, from, to, true, true);
         }
         /// <summary>
-        /// 
+        /// 判断当前可空值是否在指定范围内，可控制边界值为空时的行为。
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="me"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="blfromIfnull">下限值为null时是否 满足下限判断条件 如是否 x >= from </param>
-        /// <param name="blToIfnull"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">可比较的值类型。</typeparam>
+        /// <param name="me">要判断的可空值。</param>
+        /// <param name="from">范围下限（可为空）。</param>
+        /// <param name="to">范围上限（可为空）。</param>
+        /// <param name="blfromIfnull">下限值为null时是否满足下限判断条件。</param>
+        /// <param name="blToIfnull">上限值为null时是否满足上限判断条件。</param>
+        /// <returns>如果值在范围内则返回true，否则返回false。</returns>
         public static bool Between<T>(this T? me, T? from, T? to, bool blfromIfnull, bool blToIfnull)
             where T : struct, IComparable<T>
         {
@@ -38,15 +54,37 @@ namespace Howl.Core.Extensions
             return blFrom && blTo;
         }
 
+        /// <summary>
+        /// 返回当前值和另一个值中的较大值。
+        /// </summary>
+        /// <typeparam name="T">可比较的类型。</typeparam>
+        /// <param name="me">当前值。</param>
+        /// <param name="other">另一个值。</param>
+        /// <returns>较大的值。</returns>
         public static T Max<T>(this T me, T other) where T : IComparable<T>
         {
             return me.CompareTo(other) >= 0 ? me : other;
         }
+
+        /// <summary>
+        /// 返回当前值和另一个值中的较小值。
+        /// </summary>
+        /// <typeparam name="T">可比较的类型。</typeparam>
+        /// <param name="me">当前值。</param>
+        /// <param name="other">另一个值。</param>
+        /// <returns>较小的值。</returns>
         public static T Min<T>(this T me, T other) where T : IComparable<T>
         {
             return me.CompareTo(other) <= 0 ? me : other;
         }
 
+        /// <summary>
+        /// 返回两个可空值中的较大值。如果其中一个为空，返回非空值；如果都为空，返回空。
+        /// </summary>
+        /// <typeparam name="T">可比较的值类型。</typeparam>
+        /// <param name="me">当前可空值。</param>
+        /// <param name="other">另一个可空值。</param>
+        /// <returns>较大的可空值。</returns>
         public static T? Max<T>(this T? me, T? other) where T : struct, IComparable<T>
         {
             if (me.HasValue && other.HasValue)
@@ -55,6 +93,14 @@ namespace Howl.Core.Extensions
             }
             return me ?? other;
         }
+
+        /// <summary>
+        /// 返回两个可空值中的较小值。如果其中一个为空，返回非空值；如果都为空，返回空。
+        /// </summary>
+        /// <typeparam name="T">可比较的值类型。</typeparam>
+        /// <param name="me">当前可空值。</param>
+        /// <param name="other">另一个可空值。</param>
+        /// <returns>较小的可空值。</returns>
         public static T? Min<T>(this T? me, T? other) where T : struct, IComparable<T>
         {
             if (me.HasValue && other.HasValue)
@@ -64,6 +110,13 @@ namespace Howl.Core.Extensions
             return me ?? other;
         }
 
+        /// <summary>
+        /// 获取可空值的实际值，如果为空则返回指定的默认值。
+        /// </summary>
+        /// <typeparam name="T">值类型。</typeparam>
+        /// <param name="me">可空值。</param>
+        /// <param name="defval">默认值。</param>
+        /// <returns>实际值或默认值。</returns>
         public static T Value<T>(this T? me, T defval = default(T)) where T : struct
         {
             return me ?? defval;
