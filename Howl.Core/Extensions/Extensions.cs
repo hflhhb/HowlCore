@@ -270,7 +270,10 @@ namespace Howl.Core.Extensions
         {
             if (me == null || key == null) return defaultValue;
 
-            me.TryGetValue(key, out defaultValue);
+            if (me.TryGetValue(key, out var result))
+            {
+                return result;
+            }
 
             return defaultValue;
         }

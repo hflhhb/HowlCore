@@ -60,16 +60,23 @@ namespace Howl.Core.Extensions
         {
             if (source == null) return me;
 
-            var properties = typeof(T2).GetProperties().Where(el => el.CanRead && el.CanWrite).ToArray();
-            foreach (var property in properties)
+            var sourceProperties = typeof(T2).GetProperties().Where(el => el.CanRead).ToArray();
+            var targetProperties = typeof(T1).GetProperties().Where(el => el.CanRead && el.CanWrite).ToArray();
+
+            foreach (var sourceProperty in sourceProperties)
             {
-                var oldValue = me.Get(property.Name);
+                var targetProperty = targetProperties.FirstOrDefault(p => p.Name == sourceProperty.Name);
+                if (targetProperty == null) continue;
+
+                var oldValue = me.Get(targetProperty);
+                // 需要被赋值的属性要为空才能被赋值，有值的时候退出
                 if (oldValue != null) continue;
 
-                var newValue = source.Get(property);
+                var newValue = source.Get(sourceProperty);
+                // 新的值要不为空，为空的时候退出
                 if (newValue == null) continue;
 
-                me.Set(property, newValue);
+                me.Set(targetProperty, newValue);
             }
 
             return me;

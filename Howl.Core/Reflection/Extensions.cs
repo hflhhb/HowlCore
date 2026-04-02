@@ -121,7 +121,7 @@ namespace Howl.Core.Reflection
         public static string Path(this LambdaExpression me)
         {
             var props = me.Members();
-            if (props == null) throw new ArgumentException("Expression does not contain any member access.");
+            if (props == null || props.Length == 0) throw new ArgumentException("Expression does not contain any member access.");
 
             return string.Join(".", props.Select(el => el.Name));
         }
