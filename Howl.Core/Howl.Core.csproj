@@ -12,13 +12,13 @@
     <PackageTags />
     <PackageProjectUrl>https://github.com/hflhhb/HowlCore</PackageProjectUrl>
     <RepositoryType>Github</RepositoryType>
+    <Version>1.1.0</Version>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <!--<PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />-->
   </ItemGroup>
 
 </Project>
